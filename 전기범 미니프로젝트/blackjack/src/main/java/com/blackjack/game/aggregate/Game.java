@@ -1,7 +1,6 @@
 package com.blackjack.game.aggregate;
 
 import com.blackjack.member.aggregate.Member;
-import com.blackjack.member.aggregate.Tier;
 
 public class Game {
     private Deck deck;

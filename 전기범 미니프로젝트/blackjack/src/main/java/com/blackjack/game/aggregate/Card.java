@@ -91,51 +91,30 @@ public class Card {
     }
 
     private String getSuitSymbol(Suit suit) {
-        switch (suit) {
-            case SPADES:
-                return "♠";
-            case HEARTS:
-                return "♥";
-            case DIAMONDS:
-                return "♦";
-            case CLUBS:
-                return "♣";
-            default:
-                return "?";
-        }
+        return switch (suit) {
+            case SPADES -> "♠";
+            case HEARTS -> "♥";
+            case DIAMONDS -> "♦";
+            case CLUBS -> "♣";
+        };
     }
 
     private String getRankDisplay(Rank rank) {
-        switch (rank) {
-            case TWO:
-                return "2";
-            case THREE:
-                return "3";
-            case FOUR:
-                return "4";
-            case FIVE:
-                return "5";
-            case SIX:
-                return "6";
-            case SEVEN:
-                return "7";
-            case EIGHT:
-                return "8";
-            case NINE:
-                return "9";
-            case TEN:
-                return "10";
-            case JACK:
-                return "J";
-            case QUEEN:
-                return "Q";
-            case KING:
-                return "K";
-            case ACE:
-                return "A";
-            default:
-                return "?";
-        }
+        return switch (rank) {
+            case TWO -> "2";
+            case THREE -> "3";
+            case FOUR -> "4";
+            case FIVE -> "5";
+            case SIX -> "6";
+            case SEVEN -> "7";
+            case EIGHT -> "8";
+            case NINE -> "9";
+            case TEN -> "10";
+            case JACK -> "J";
+            case QUEEN -> "Q";
+            case KING -> "K";
+            case ACE -> "A";
+        };
     }
 
     public String getBackSide() {
@@ -179,8 +158,7 @@ public class Card {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (!(obj instanceof Card)) return false;
-        Card other = (Card) obj;
+        if (!(obj instanceof Card other)) return false;
         return this.suit == other.suit && this.rank == other.rank;
     }
 

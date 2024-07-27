@@ -24,14 +24,6 @@ public class Member implements Serializable, Comparable<Member> {
         this.age = age;
     }
 
-    public Tier getTier() {
-        return tier;
-    }
-
-    public void setTier(Tier tier) {
-        this.tier = tier;
-    }
-
     public Member(int memNo, String id, String pwd, String name, String nickname, int age) {
         this(id, pwd, name, nickname, age);
         this.memNo = memNo;
@@ -44,6 +36,8 @@ public class Member implements Serializable, Comparable<Member> {
         this.name = member.name;
         this.nickname = member.nickname;
         this.age = member.age;
+        this.dollars = member.dollars;
+        this.tier = member.tier;
     }
 
     public int getMemNo() {
@@ -100,6 +94,14 @@ public class Member implements Serializable, Comparable<Member> {
 
     public void setDollars(int dollars) {
         this.dollars = dollars;
+    }
+
+    public Tier getTier() {
+        return tier;
+    }
+
+    public void setTier(Tier tier) {
+        this.tier = tier;
     }
 
     @Override
