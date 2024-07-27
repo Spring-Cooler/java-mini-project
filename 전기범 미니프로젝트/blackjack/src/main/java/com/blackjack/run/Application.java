@@ -4,8 +4,6 @@ import com.blackjack.member.aggregate.LoginForm;
 import com.blackjack.member.aggregate.Member;
 import com.blackjack.member.aggregate.MemberResponseObject;
 import com.blackjack.member.service.MemberService;
-import org.jline.terminal.Terminal;
-import org.jline.terminal.TerminalBuilder;
 import java.util.Scanner;
 
 import static java.lang.System.exit;
@@ -67,22 +65,9 @@ public class Application {
         }
     }
 
-    private static void clearConsole() {
-        try {
-            try (Terminal terminal = TerminalBuilder.terminal()) {
-                terminal.puts(org.jline.utils.InfoCmp.Capability.clear_screen);
-                terminal.flush();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        System.out.println("콘솔 화면이 지워졌습니다!");
-    }
-
     private static void goLounge() {
         Scanner sc = new Scanner(System.in);
-        System.out.println(memNo);
+//        System.out.println(memNo);
         while (true) {
             System.out.println("\n====== 라운지 ======");
             System.out.println("1. 게임 시작");

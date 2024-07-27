@@ -10,7 +10,7 @@ import java.util.Collections;
 public class MemberRepository {
 
     private final ArrayList<Member> memberList = new ArrayList<>();
-    private final String filePath = "src/main/java/com/blackjack/member/db/memberDB.dat";
+    private final String filePath = "전기범 미니프로젝트/blackjack/src/main/java/com/blackjack/member/db/memberDB.dat";
     private final File file;
     public MemberRepository() {
         file = new File(filePath);
