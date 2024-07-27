@@ -3,6 +3,7 @@ package com.blackjack.game.repository;
 import com.blackjack.game.aggregate.Game;
 import com.blackjack.member.aggregate.Member;
 import com.blackjack.member.repository.MemberRepository;
+import com.blackjack.member.service.MemberService;
 import com.blackjack.stream.MyObjectOutput;
 
 import java.io.*;
@@ -11,10 +12,12 @@ import java.util.ArrayList;
 public class GameRepository {
 
     private ArrayList<Game> gameList = new ArrayList<>();
+    private final MemberService memberService;
     private final String filePath = "전기범 미니프로젝트/blackjack/src/main/java/com/blackjack/game/db/gameDB.dat";
     private final File file;
 
-    public GameRepository() {
+    public GameRepository(MemberService memberService) {
+        this.memberService = memberService;
         file = new File(filePath);
 
         if(!file.exists()) {
@@ -60,7 +63,7 @@ public class GameRepository {
                 gameList.add((Game)ois.readObject());
             }
         } catch (EOFException e) {
-            System.out.println("게임 전적 모두 로딩됨...");
+            System.out.print("");
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
@@ -123,8 +126,7 @@ public class GameRepository {
 
     public ArrayList<Game> selectGamesByNickname(String nickname) {
         ArrayList<Game> games = new ArrayList<>();
-        MemberRepository memberRepository = new MemberRepository();
-        Member member = memberRepository.selectMemberByNickname(nickname);
+        Member member = memberService.findMemberByNickname(nickname).getMember();
         int cnt = 0;
         for(int i=gameList.size()-1; i>=0; i--) {
             Game game = gameList.get(i);

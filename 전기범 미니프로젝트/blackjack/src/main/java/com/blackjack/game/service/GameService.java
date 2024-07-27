@@ -3,12 +3,17 @@ package com.blackjack.game.service;
 import com.blackjack.game.aggregate.Game;
 import com.blackjack.game.aggregate.GameResponseObject;
 import com.blackjack.game.repository.GameRepository;
+import com.blackjack.member.service.MemberService;
 
 import java.util.ArrayList;
 
 public class GameService {
 
-    private final GameRepository gameRepository = new GameRepository();
+    private final GameRepository gameRepository;
+
+    public GameService(MemberService memberService) {
+        gameRepository = new GameRepository(memberService);
+    }
 
     public GameResponseObject saveGame(Game game) {
         if(game == null) return new GameResponseObject(null, false);

@@ -14,7 +14,7 @@ public class Card {
 
     public static int sumCardsPoint(ArrayList<Card> playerCard, boolean isDealerCardAndFirstRound) {
         int sum = 0;
-        boolean checkAce = false;
+        int cntAce = 0;
         for(Card card : playerCard) {
             if(isDealerCardAndFirstRound) {
                 isDealerCardAndFirstRound = false;
@@ -22,7 +22,7 @@ public class Card {
             }
             Rank rank = card.getRank();
             if(rank == Rank.ACE) {
-                checkAce = true;
+                cntAce++;
                 sum+=11;
             }
             else if(rank == Rank.TEN || rank == Rank.JACK ||
@@ -33,7 +33,12 @@ public class Card {
                 sum+=rank.ordinal()+2;
             }
         }
-        if(checkAce && sum > 21) sum-=10;
+        if(cntAce > 0 && sum > 21) {
+            while(sum > 21 && cntAce > 0) {
+                sum -= 10;
+                cntAce--;
+            }
+        }
         return sum;
     }
 

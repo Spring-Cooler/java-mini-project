@@ -68,6 +68,7 @@ public class Game implements Serializable {
     }
 
     public void push() {
+        player.setDollars(player.getDollars() + this.bet);
         this.bet = 0;
     }
 

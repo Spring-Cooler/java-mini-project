@@ -59,7 +59,7 @@ public class MemberRepository {
                 memberList.add((Member)ois.readObject());
             }
         } catch (EOFException e) {
-            System.out.println("회원 정보 모두 로딩됨...");
+            System.out.print("");
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
