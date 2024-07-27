@@ -12,7 +12,6 @@ import com.blackjack.member.aggregate.Tier;
 import com.blackjack.member.service.MemberService;
 
 import java.util.ArrayList;
-import java.util.ListIterator;
 import java.util.Scanner;
 
 import static java.lang.System.exit;
