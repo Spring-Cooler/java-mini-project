@@ -12,6 +12,7 @@ public class MemberRepository {
     private final ArrayList<Member> memberList = new ArrayList<>();
     private final String filePath = "전기범 미니프로젝트/blackjack/src/main/java/com/blackjack/member/db/memberDB.dat";
     private final File file;
+
     public MemberRepository() {
         file = new File(filePath);
 
@@ -129,8 +130,7 @@ public class MemberRepository {
         int index = Collections.binarySearch(memberList
                 , new Member(member.getMemNo(), "", "", "", "", 0));
         if(index >= 0) {
-            memberList.get(index).setNickname(member.getNickname());
-            memberList.get(index).setPwd(member.getPwd());
+            memberList.set(index, new Member(member));
             saveMembers(file, memberList);
             return true;
         }

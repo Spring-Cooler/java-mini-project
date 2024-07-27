@@ -1,6 +1,7 @@
 package com.blackjack.member.aggregate;
 
 public class MemberResponseObject {
+
     private Member member;
     private int checkValueInt;
     private boolean checkValueBoolean;

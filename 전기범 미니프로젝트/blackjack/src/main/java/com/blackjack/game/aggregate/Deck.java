@@ -9,8 +9,8 @@ public class Deck {
 
     public Deck() {
         cards = new ArrayList<>();
-        for (Card.Suit suit : Card.Suit.values()) {
-            for (Card.Rank rank : Card.Rank.values()) {
+        for (Suit suit : Suit.values()) {
+            for (Rank rank : Rank.values()) {
                 cards.add(new Card(suit, rank));
             }
         }
@@ -22,8 +22,8 @@ public class Deck {
 
     public Card dealCard() {
         if (!cards.isEmpty()) return cards.remove(cards.size() - 1);
-        for (Card.Suit suit : Card.Suit.values()) {
-            for (Card.Rank rank : Card.Rank.values()) {
+        for (Suit suit : Suit.values()) {
+            for (Rank rank : Rank.values()) {
                 cards.add(new Card(suit, rank));
             }
         }

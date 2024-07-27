@@ -1,6 +1,7 @@
 package com.blackjack.member.aggregate;
 
 public class LoginForm {
+
     private String memId;
     private String memPwd;
 

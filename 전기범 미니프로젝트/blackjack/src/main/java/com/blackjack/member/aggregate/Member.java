@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Member implements Serializable, Comparable<Member> {
+
     private int memNo;
     private String id;
     private String pwd;

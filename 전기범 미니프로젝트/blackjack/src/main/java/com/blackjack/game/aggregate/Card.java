@@ -4,15 +4,6 @@ import java.util.ArrayList;
 
 public class Card {
 
-    public enum Suit {
-        SPADES, HEARTS, DIAMONDS, CLUBS
-    }
-
-    public enum Rank {
-        TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN,
-        JACK, QUEEN, KING, ACE
-    }
-
     private final Suit suit;
     private final Rank rank;
 
@@ -30,12 +21,12 @@ public class Card {
                 continue;
             }
             Rank rank = card.getRank();
-            if(rank == Card.Rank.ACE) {
+            if(rank == Rank.ACE) {
                 checkAce = true;
                 sum+=11;
             }
-            else if(rank == Card.Rank.TEN || rank == Card.Rank.JACK ||
-                    rank == Card.Rank.QUEEN || rank == Card.Rank.KING) {
+            else if(rank == Rank.TEN || rank == Rank.JACK ||
+                    rank == Rank.QUEEN || rank == Rank.KING) {
                 sum+=10;
             }
             else {

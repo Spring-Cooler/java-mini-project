@@ -2,14 +2,19 @@ package com.blackjack.game.aggregate;
 
 import com.blackjack.member.aggregate.Member;
 
-public class Game {
-    private Deck deck;
+import java.io.Serializable;
+import java.util.Objects;
+
+public class Game implements Serializable {
+
+    private int gameNo;
     private Member player;
-    private int betLimit = 10;
-    private int bet = 0;
-    private int insuranceBet = 0;
-    private boolean evenMoney = false;
     private int result = 0;
+    private transient Deck deck;
+    private transient int betLimit = 10;
+    private transient int bet = 0;
+    private transient int insuranceBet = 0;
+    private transient boolean evenMoney = false;
 
     public Game(Member player) {
         this.deck = new Deck();
@@ -68,28 +73,28 @@ public class Game {
 
     public void placeInsurance() {
         if (this.bet > 0 && this.insuranceBet == 0) {
-            this.insuranceBet = bet / 2; // 인슈어런스는 원래 베팅 금액의 절반
+            this.insuranceBet = bet / 2; // 인슈어런스는 베팅 금액의 절반
             player.setDollars(player.getDollars() - this.insuranceBet);
         } else {
             System.out.println("\n인슈어런스를 할 수 없습니다.");
         }
     }
 
-    public boolean getEvenMoney() {
-        return evenMoney;
-    }
-
-    public void setEvenMoney(boolean evenMoney) {
-        this.evenMoney = evenMoney;
-    }
-
     public boolean isBlackjack(Card Card1, Card Card2) {
-        return  (Card1.getRank() == Card.Rank.ACE &&
-                    (Card2.getRank() == Card.Rank.TEN || Card2.getRank() == Card.Rank.JACK ||
-                     Card2.getRank() == Card.Rank.QUEEN || Card2.getRank() == Card.Rank.KING)) ||
-                (Card2.getRank() == Card.Rank.ACE &&
-                     (Card1.getRank() == Card.Rank.TEN || Card1.getRank() == Card.Rank.JACK ||
-                      Card1.getRank() == Card.Rank.QUEEN || Card1.getRank() == Card.Rank.KING));
+        return  (Card1.getRank() == Rank.ACE &&
+                    (Card2.getRank() == Rank.TEN || Card2.getRank() == Rank.JACK ||
+                     Card2.getRank() == Rank.QUEEN || Card2.getRank() == Rank.KING)) ||
+                (Card2.getRank() == Rank.ACE &&
+                     (Card1.getRank() == Rank.TEN || Card1.getRank() == Rank.JACK ||
+                      Card1.getRank() == Rank.QUEEN || Card1.getRank() == Rank.KING));
+    }
+
+    public int getGameNo() {
+        return gameNo;
+    }
+
+    public void setGameNo(int gameNo) {
+        this.gameNo = gameNo;
     }
 
     public Deck getDeck() {
@@ -132,6 +137,14 @@ public class Game {
         this.insuranceBet = insuranceBet;
     }
 
+    public boolean getEvenMoney() {
+        return evenMoney;
+    }
+
+    public void setEvenMoney(boolean evenMoney) {
+        this.evenMoney = evenMoney;
+    }
+
     public int getResult() {
         return result;
     }
@@ -140,4 +153,24 @@ public class Game {
         this.result = result;
     }
 
+    @Override
+    public String toString() {
+        return "게임 [ 티어: " + player.getTier() +
+               ", 닉네임: " + player.getNickname() +
+               ", 손익: " + result + "달러($) "+
+               ']';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Game game = (Game) o;
+        return gameNo == game.gameNo;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(gameNo);
+    }
 }
