@@ -12,26 +12,22 @@ public class MemberService {
     public MemberResponseObject findMemberByLoginForm(LoginForm loginForm) {
         Member member = memberRepository.selectMemberById(loginForm.getMemId());
         if(member == null) return new MemberResponseObject(null,-1);
-
-        if (member.getPwd().equals(loginForm.getMemPwd())) {
+        if (member.getPwd().equals(loginForm.getMemPwd()))
             return new MemberResponseObject(member,1);
-        }
         else return new MemberResponseObject(null,0);
     }
 
     public MemberResponseObject findMemberByMemNo(int memNo) {
         Member member = memberRepository.selectMemberByMemNo(memNo);
-        if(member != null) {
+        if(member != null)
             return new MemberResponseObject(member,true);
-        }
         else return new MemberResponseObject(null,false);
     }
 
     public MemberResponseObject findMemberByNickname(String nickname) {
         Member member = memberRepository.selectMemberByNickname(nickname);
-        if(member != null) {
+        if(member != null)
             return new MemberResponseObject(member,true);
-        }
         else return new MemberResponseObject(null,false);
     }
 
@@ -46,10 +42,16 @@ public class MemberService {
     }
 
     public MemberResponseObject removeMember(Member member) {
-        if(member != null) {
-            memberRepository.deleteMember(member);
+        if(member == null) return new MemberResponseObject(null,false);
+        if(memberRepository.deleteMember(member))
             return new MemberResponseObject(null,true);
-        }
-        return new MemberResponseObject(null,false);
+        else return new MemberResponseObject(null,false);
+    }
+
+    public MemberResponseObject modifyMember(Member member) {
+        if(member == null) return new MemberResponseObject(null,false);
+        if(memberRepository.updateMember(member))
+            return new MemberResponseObject(member,true);
+        else return new MemberResponseObject(null,false);
     }
 }

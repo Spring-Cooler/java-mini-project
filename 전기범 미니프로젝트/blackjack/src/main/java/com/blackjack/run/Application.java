@@ -56,8 +56,7 @@ public class Application {
                     case 9:
                         System.out.println("\n게임을 종료합니다.");
                         return;
-                    default:
-                        System.out.println("\n잘못된 입력입니다.");
+                    default: System.out.println("\n잘못된 입력입니다.");
                 }
             } catch (NumberFormatException e) {
                 System.out.println("\n잘못된 입력입니다.");
@@ -91,7 +90,8 @@ public class Application {
                     case 2:
                         MemberResponseObject checkMyInfoSuccess = memberService.findMemberByMemNo(memNo);
                         if (checkMyInfoSuccess.getCheckValueBoolean()) {
-                            printMemInfo(checkMyInfoSuccess);
+                            printMemInfo(checkMyInfoSuccess.getMember());
+                            selectMyInfoMenuNo(checkMyInfoSuccess.getMember());
                         } else {
                             System.out.println("\n내 정보를 불러오지 못했습니다.");
                         }
@@ -99,7 +99,7 @@ public class Application {
                     case 3:
                         MemberResponseObject checkMemInfoSuccess = memberService.findMemberByNickname(searchNickname());
                         if (checkMemInfoSuccess.getCheckValueBoolean()) {
-                            printMemInfo(checkMemInfoSuccess);
+                            printMemInfo(checkMemInfoSuccess.getMember());
                         } else {
                             System.out.println("\n존재하지 않는 닉네임입니다.");
                         }
@@ -115,13 +115,95 @@ public class Application {
                         if (checkMemDelSuccess.getCheckValueBoolean()) {
                             System.out.println("\n회원 탈퇴 완료");
                             return;
-                        }
-                        else {
+                        } else {
                             System.out.println("\n회원 탈퇴 실패");
                             break;
                         }
-                    default:
-                        System.out.println("\n잘못된 입력입니다.");
+                    default: System.out.println("\n잘못된 입력입니다.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("\n잘못된 입력입니다.");
+            }
+        }
+    }
+
+    private static void selectMyInfoMenuNo(Member member) {
+        Scanner sc = new Scanner(System.in);
+        while(true) {
+            System.out.println("\n1. 정보 수정");
+            System.out.println("9. 뒤로 가기");
+            System.out.println("번호를 입력하세요: ");
+            String line = sc.nextLine();
+            if(line.length() > 1) {
+                System.out.println("\n잘못된 입력입니다.");
+                continue;
+            }
+            try {
+                int input = Integer.parseInt(line);
+                switch (input) {
+                    case 1:
+                        MemberResponseObject checkModifySuccess = memberService.modifyMember(changeMyInfo(member));
+                        if (!checkModifySuccess.getCheckValueBoolean()) System.out.println("\n정보 수정 실패");
+                        else System.out.println("\n정보 수정 완료");
+                        printMemInfo(checkModifySuccess.getMember());
+                        break;
+                    case 9:
+                        return;
+                    default: System.out.println("\n잘못된 입력입니다.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("\n잘못된 입력입니다.");
+            }
+        }
+    }
+
+    private static Member changeMyInfo(Member member) {
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            System.out.println("\n====== 내 정보 수정 ======");
+            System.out.println("1. 닉네임 변경");
+            System.out.println("2. 비밀번호 변경");
+            System.out.println("9. 저장하기");
+            System.out.println("========================");
+            System.out.println("번호를 입력하세요: ");
+            String line = sc.nextLine();
+            if(line.length() > 1) {
+                System.out.println("\n잘못된 입력입니다.");
+                continue;
+            }
+            try {
+                int input = Integer.parseInt(line);
+                switch (input) {
+                    case 1:
+                        System.out.println("새 닉네임: ");
+                        String newNickname = sc.nextLine();
+                        MemberResponseObject checkValidNickname = memberService.findMemberByNickname(newNickname);
+                        if(checkValidNickname.getCheckValueBoolean()) System.out.println("\n중복된 닉네임입니다.");
+                        else {
+                            System.out.println("\n사용 가능한 닉네임입니다.");
+                            System.out.println("사용하시겠습니까?(Y/N): ");
+                            String YOrN = sc.nextLine();
+                            if(YOrN.equals("Y") | YOrN.equals("y")) member.setNickname(newNickname);
+                            else if(YOrN.equals("N") | YOrN.equals("n")) break;
+                            else System.out.println("\n잘못된 입력입니다.");
+                        }
+                        break;
+                    case 2:
+                        System.out.println("새 비밀번호: ");
+                        String newPwd = sc.nextLine();
+                        System.out.println("새 비밀번호 확인");
+                        String newPwdConfirm = sc.nextLine();
+                        if(newPwd.equals(member.getPwd())) {
+                            System.out.println("\n기존 비밀번호와 동일합니다.");
+                            break;
+                        }
+                        if(!newPwd.equals(newPwdConfirm)) System.out.println("\n비밀번호가 서로 일치하지 않습니다.");
+                        else member.setPwd(newPwd);
+                        break;
+                    case 9:
+                        System.out.println("\n저장 완료");
+                        return member;
+                    default: System.out.println("\n잘못된 입력입니다.");
                 }
             } catch (NumberFormatException e) {
                 System.out.println("\n잘못된 입력입니다.");
@@ -147,12 +229,12 @@ public class Application {
         return null;
     }
 
-    private static void printMemInfo(MemberResponseObject mro) {
+    private static void printMemInfo(Member member) {
         System.out.println("\n====== 회원 정보 ======");
 //        System.out.println("회원번호: " + mro.getMember().getMemNo());
-        System.out.println("닉네임: " + mro.getMember().getNickname());
-        System.out.println("나이: " + mro.getMember().getAge());
-        System.out.println("잔고: $" + mro.getMember().getDollars());
+        System.out.println("닉네임: " + member.getNickname());
+        System.out.println("나이: " + member.getAge());
+        System.out.println("잔고: $" + member.getDollars());
         System.out.println("====================");
     }
 
@@ -200,9 +282,23 @@ public class Application {
             else System.out.println("\n중복된 닉네임입니다.\n");
         } while(flag);
 
-        System.out.println("나이: ");
-        int memAge = sc.nextInt();
-        sc.nextLine(); //\n 비우기
+        flag = true;
+        String line;
+        int memAge = 0;
+        do {
+            System.out.println("나이: ");
+            line = sc.nextLine();
+            try {
+                memAge = Integer.parseInt(line);
+                if(memAge < 1 || memAge > 130) {
+                    System.out.println("\n잘못된 입력입니다.\n");
+                    continue;
+                }
+                flag = false;
+            } catch (NumberFormatException e) {
+                System.out.println("\n잘못된 입력입니다.\n");
+            }
+        } while(flag);
         return new Member(memId, memPwd, memName, memNickname, memAge);
     }
 

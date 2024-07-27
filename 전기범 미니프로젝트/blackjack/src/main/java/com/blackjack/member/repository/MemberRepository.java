@@ -40,7 +40,7 @@ public class MemberRepository {
             try {
                 if(oos != null) oos.close();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                System.out.println("oos close failure");
             }
         }
     }
@@ -72,30 +72,9 @@ public class MemberRepository {
         }
     }
 
-    public int selectLastMemberNo() {
-        System.out.println(memberList.size());
+    private int selectLastMemberNo() {
         if(memberList.isEmpty()) return 0;
         return memberList.get(memberList.size() - 1).getMemNo();
-    }
-
-    public Member selectMemberByMemNo(int memNo) {
-        int index = Collections.binarySearch(memberList
-                        , new Member(memNo, "", "", "", "", 0));
-        return new Member(memberList.get(index));
-    }
-
-    public Member selectMemberById(String memId) {
-        for(Member member : memberList) {
-            if(member.getId().equals(memId)) return new Member(member); // 깊은 복사
-        }
-        return null;
-    }
-
-    public Member selectMemberByNickname(String nickname) {
-        for(Member member : memberList) {
-            if(member.getNickname().equals(nickname)) return new Member(member); // 깊은 복사
-        }
-        return null;
     }
 
     public boolean insertMember(Member member) {
@@ -120,16 +99,53 @@ public class MemberRepository {
             try {
                 if(moo != null) moo.close();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                System.out.println("moo close failure");
             }
         }
         return result;
     }
 
-    public void deleteMember(Member member) {
+    public Member selectMemberByMemNo(int memNo) {
+        int index = Collections.binarySearch(memberList
+                        , new Member(memNo, "", "", "", "", 0));
+        return new Member(memberList.get(index));
+    }
+
+    public Member selectMemberById(String memId) {
+        for(Member member : memberList) {
+            if(member.getId().equals(memId)) return new Member(member); // 깊은 복사
+        }
+        return null;
+    }
+
+    public Member selectMemberByNickname(String nickname) {
+        for(Member member : memberList) {
+            if(member.getNickname().equals(nickname)) return new Member(member); // 깊은 복사
+        }
+        return null;
+    }
+
+    public boolean updateMember(Member member) {
         int index = Collections.binarySearch(memberList
                 , new Member(member.getMemNo(), "", "", "", "", 0));
-        memberList.remove(index);
-        saveMembers(file, memberList);
+        if(index >= 0) {
+            memberList.get(index).setNickname(member.getNickname());
+            memberList.get(index).setPwd(member.getPwd());
+            saveMembers(file, memberList);
+            return true;
+        }
+        return false;
     }
+
+    public boolean deleteMember(Member member) {
+        int index = Collections.binarySearch(memberList
+                , new Member(member.getMemNo(), "", "", "", "", 0));
+        if(index >= 0) {
+            memberList.remove(index);
+            saveMembers(file, memberList);
+            return true;
+        }
+        return false;
+    }
+
 }
