@@ -34,17 +34,6 @@ public class Game implements Serializable {
         this.bet += dollars;
     }
 
-    public void blackjack() {
-        player.setDollars(player.getDollars() + this.bet/2);
-        this.result += (this.bet/2);
-        playerWin();
-    }
-
-    public void evenMoney() {
-        playerWin();
-        this.evenMoney = false;
-    }
-
     public void insurance(boolean checkDealerBlackjack) {
         if (insuranceBet > 0) {
             if(checkDealerBlackjack) {
@@ -54,6 +43,17 @@ public class Game implements Serializable {
             else this.result -= insuranceBet;
             insuranceBet = 0;
         }
+    }
+
+    public void evenMoney() {
+        playerWin();
+        this.evenMoney = false;
+    }
+
+    public void blackjack() {
+        player.setDollars(player.getDollars() + this.bet/2);
+        this.result += (this.bet/2);
+        playerWin();
     }
 
     public void playerWin() {

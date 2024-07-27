@@ -68,7 +68,6 @@ public class Card {
             line7.append(cardLines[6]).append(" ");
         }
 
-        // 출력
         System.out.println(line1);
         System.out.println(line2);
         System.out.println(line3);

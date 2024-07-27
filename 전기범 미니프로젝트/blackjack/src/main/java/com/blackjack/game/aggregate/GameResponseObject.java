@@ -3,6 +3,7 @@ package com.blackjack.game.aggregate;
 import java.util.ArrayList;
 
 public class GameResponseObject {
+
     private ArrayList<Game> gameList;
     private int checkValueInt;
     private boolean checkValueBoolean;
@@ -40,7 +41,7 @@ public class GameResponseObject {
         this.checkValueInt = checkValueInt;
     }
 
-    public boolean isCheckValueBoolean() {
+    public boolean getCheckValueBoolean() {
         return checkValueBoolean;
     }
 

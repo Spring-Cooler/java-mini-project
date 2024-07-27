@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Deck {
+
     private final List<Card> cards;
 
     public Deck() {
@@ -33,6 +34,10 @@ public class Deck {
 
     public int cardsLeft() {
         return cards.size();
+    }
+
+    public boolean isEmpty() {
+        return cards.isEmpty();
     }
 
     @Override
