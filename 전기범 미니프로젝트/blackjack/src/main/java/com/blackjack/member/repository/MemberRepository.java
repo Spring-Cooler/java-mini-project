@@ -67,7 +67,7 @@ public class MemberRepository {
             try {
                 if(ois != null) ois.close();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                System.out.println("ois close failure");
             }
         }
     }
