@@ -9,6 +9,7 @@ public class Member implements Serializable, Comparable<Member> {
     private String pwd;
     private String name;
     private String nickname;
+    private Tier tier = Tier.BRONZE;
     private int age;
     private int dollars = 100;
 
@@ -21,6 +22,14 @@ public class Member implements Serializable, Comparable<Member> {
         this.name = name;
         this.nickname = nickname;
         this.age = age;
+    }
+
+    public Tier getTier() {
+        return tier;
+    }
+
+    public void setTier(Tier tier) {
+        this.tier = tier;
     }
 
     public Member(int memNo, String id, String pwd, String name, String nickname, int age) {
