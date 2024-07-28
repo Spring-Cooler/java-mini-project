@@ -1,6 +1,6 @@
 package main.visualgo.aggregate;
 
-public enum Algorithm {
+public enum Algorithms {
     DFS,
     BFS,
     BruteForce,
@@ -9,6 +9,9 @@ public enum Algorithm {
     BinarySearch,
     Simulation,
     Dijkstra,
-    Backtracking;
+    Backtracking,
+    Stack,
+    Queue,
+    PriorityQueue;
 
 }

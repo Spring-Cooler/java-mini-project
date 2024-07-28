@@ -4,18 +4,44 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a9197182-4170-4088-a555-444a345fe320" name="Changes" comment="" />
+    <list default="true" id="a9197182-4170-4088-a555-444a345fe320" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/java-mini-project.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/visualgo/aggregate/Tier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/datas/solutions/Solution1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/datas/solutions/Solution1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/datas/testcases/TestCase1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/datas/testcases/TestCase1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/datas/testcases/TestCase2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/datas/testcases/TestCase2.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/visualgo/aggregate/Algorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/visualgo/aggregate/Algorithms.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/visualgo/aggregate/DataType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/visualgo/aggregate/DataType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/visualgo/aggregate/Problem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/visualgo/aggregate/Problem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/visualgo/repository/DataRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/visualgo/repository/DataRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/visualgo/run/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/visualgo/run/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/visualgo/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/visualgo/service/UserService.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 6
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="2jpSLZjH0r1VXFZoP3rzUCLbqya" />
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
@@ -23,6 +49,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "dev__sh",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
@@ -32,10 +59,10 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "SDKs",
+    "project.structure.last.edited": "Problems",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "settings.editor.selected.configurable": "project.propVCSSupport.Mappings",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -56,10 +83,16 @@
       <option name="presentableId" value="Default" />
       <updated>1722082469446</updated>
       <workItem from="1722082470519" duration="618000" />
+      <workItem from="1722206851929" duration="395000" />
+      <workItem from="1722207264400" duration="3459000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

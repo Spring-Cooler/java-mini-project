@@ -1,7 +1,6 @@
-package main.visualgo.service;
+package src.main.visualgo.service;
 
-import main.visualgo.repository.DataRepository;
-
+import src.main.visualgo.repository.DataRepository;
 
 public class UserService {
     /* singleton */
@@ -18,6 +17,8 @@ public class UserService {
     }
 
     /* initialization */
-//    todo : check Solution codes and convert to Ast analysis code
-//    todo : get TestCases and
+//    todo: show problems in db(problems.dat)
+//    todo: parse AST()
+//    todo: run AST()
+//    todo: visualize results()
 }

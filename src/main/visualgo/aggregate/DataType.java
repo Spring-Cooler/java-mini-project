@@ -1,4 +1,4 @@
-package main.visualgo.aggregate;
+package src.main.visualgo.aggregate;
 
 public enum DataType {
     List,
