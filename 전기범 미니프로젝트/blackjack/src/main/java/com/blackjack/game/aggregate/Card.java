@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Card {
 
-    private final Suit suit;
-    private final Rank rank;
+    private final Suit suit; // 카드 문양
+    private final Rank rank; // 카드 숫자
 
     public Card(Suit suit, Rank rank) {
         this.suit = suit;
@@ -13,13 +13,15 @@ public class Card {
     }
 
     public static int sumCardsPoint(ArrayList<Card> playerCard, boolean isDealerCardAndFirstRound) {
-        int sum = 0;
-        int cntAce = 0;
+        int sum = 0; // 받은 카드의 점수 합
+        int cntAce = 0; // 받은 카드 중 에이스 카드 수
         for(Card card : playerCard) {
+            // 첫번째 턴일 경우 딜러의 첫카드는 계산 미포함
             if(isDealerCardAndFirstRound) {
                 isDealerCardAndFirstRound = false;
                 continue;
             }
+            // 에이스: 11점, [10,J,Q,K]: 10점, 나머지: 숫자대로
             Rank rank = card.getRank();
             if(rank == Rank.ACE) {
                 cntAce++;
@@ -33,7 +35,9 @@ public class Card {
                 sum+=rank.ordinal()+2;
             }
         }
+        // 에이스를 받은적 있고 점수 합이 21보다 클 경우
         if(cntAce > 0 && sum > 21) {
+            // 합계가 21이하 또는 cntAce 가 0이 될 때까지 받은 에이스를 1점으로 변환
             while(sum > 21 && cntAce > 0) {
                 sum -= 10;
                 cntAce--;
@@ -43,7 +47,7 @@ public class Card {
     }
 
     public static void printHorizontalCards(ArrayList<Card> cards, boolean isDealerCardAndFirstRound) {
-        // 각 줄을 생성하여 합친다
+        // 각 줄을 생성하여 합친다.
         StringBuilder line1 = new StringBuilder();
         StringBuilder line2 = new StringBuilder();
         StringBuilder line3 = new StringBuilder();
@@ -125,9 +129,7 @@ public class Card {
     public String getFrontSide() {
         String suitSymbol = getSuitSymbol(suit);
         String rankDisplay = getRankDisplay(rank);
-
         // 카드 출력 모양
-
         return  "┌─────────┐\n" +
                 "│ " + rankDisplay + "       │\n" +
                 "│         │\n" +
@@ -139,15 +141,13 @@ public class Card {
 
     @Override
     public String toString() {
+        // 디폴트는 카드의 앞면
         return toString(false);
     }
 
     public String toString(boolean isFaceDown) {
-        if (isFaceDown) {
-            return getBackSide();
-        } else {
-            return getFrontSide();
-        }
+        if (isFaceDown) return getBackSide();
+        else return getFrontSide();
     }
 
     @Override

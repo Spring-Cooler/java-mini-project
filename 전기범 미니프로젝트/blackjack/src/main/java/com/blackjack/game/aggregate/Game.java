@@ -7,19 +7,19 @@ import java.util.Objects;
 
 public class Game implements Serializable {
 
-    private int gameNo;
-    private Member player;
-    private int result = 0;
-    private transient Deck deck;
-    private transient int betLimit = 10;
-    private transient int bet = 0;
-    private transient int insuranceBet = 0;
-    private transient boolean evenMoney = false;
+    private int gameNo; // 게임번호
+    private Member player; // 플레이어
+    private int result = 0; // 손익
+    private transient Deck deck; // 카드덱
+    private transient int betLimit = 10; // 최대 베팅 한도
+    private transient int bet = 0; // 현재 베팅 금액
+    private transient int insuranceBet = 0; // 인슈어런스 베팅 금액
+    private transient boolean evenMoney = false; // 이븐 머니 여부
 
     public Game(Member player) {
         this.deck = new Deck();
-        deck.shuffle();
         this.player = player;
+        // 입장한 플레이어의 티어에 따라 베팅 한도 설정
         switch (player.getTier()) {
             case BRONZE: this.betLimit = 10; break;
             case SILVER: this.betLimit = 100; break;
@@ -30,58 +30,65 @@ public class Game implements Serializable {
     }
 
     public void bet(int dollars) {
-        player.setDollars(player.getDollars() - dollars);
-        this.bet += dollars;
+        player.setDollars(player.getDollars() - dollars); // 베팅 금액만큼 플레이어의 돈에서 차감
+        this.bet += dollars; // 현재 베팅 금액에 반영
     }
 
     public void insurance(boolean checkDealerBlackjack) {
+        // 인슈어런스 베팅을 한 적이 있는 경우
         if (insuranceBet > 0) {
+            // 딜러가 블랙잭일 경우
             if(checkDealerBlackjack) {
                 player.setDollars(player.getDollars() + 2 * insuranceBet); // 인슈어런스 베팅 금액을 2배로 돌려받음
-                this.result += 2 * insuranceBet;
+                this.result += insuranceBet;
             }
+            // 딜러가 블랙잭이 아닐 경우
             else this.result -= insuranceBet;
-            insuranceBet = 0;
+            insuranceBet = 0; // 인슈어런스 베팅 초기화
         }
     }
 
     public void evenMoney() {
-        playerWin();
-        this.evenMoney = false;
+        playerWin(); // 이븐 머니인 경우 베팅 금액의 200%를 지급
+        this.evenMoney = false;  // 이븐 머니 초기화
     }
 
     public void blackjack() {
-        player.setDollars(player.getDollars() + this.bet/2);
+        // 플레이어가 블랙잭으로 승리한 경우 베팅 금액의 250% 지급
+        player.setDollars(player.getDollars() + this.bet/2); // 베팅 금액의 50% 지급
         this.result += (this.bet/2);
-        playerWin();
+        playerWin(); // 베팅 금액의 200% 지급
     }
 
     public void playerWin() {
-        player.setDollars(player.getDollars() + 2*this.bet);
+        player.setDollars(player.getDollars() + 2*this.bet); // 베팅 금액의 200% 지급
         this.result += this.bet;
-        this.bet = 0;
+        this.bet = 0; // 베팅 금액 초기화
     }
 
     public void dealerWin() {
         this.result -= this.bet;
-        this.bet = 0;
+        this.bet = 0; // 베팅 금액 초기화
     }
 
     public void push() {
-        player.setDollars(player.getDollars() + this.bet);
-        this.bet = 0;
+        // 비겼을 경우
+        player.setDollars(player.getDollars() + this.bet); // 베팅 금액 반환
+        this.bet = 0; // 베팅 금액 초기화
     }
 
     public void placeInsurance() {
+        // 베팅 이후 인슈어런스를 한 적이 없는 경우
         if (this.bet > 0 && this.insuranceBet == 0) {
             this.insuranceBet = bet / 2; // 인슈어런스는 베팅 금액의 절반
-            player.setDollars(player.getDollars() - this.insuranceBet);
+            player.setDollars(player.getDollars() - this.insuranceBet); // 인슈어런스 베팅 금액만큼 플레이어의 돈에서 차감
         } else {
             System.out.println("\n인슈어런스를 할 수 없습니다.");
         }
     }
 
     public boolean isBlackjack(Card Card1, Card Card2) {
+        // 블랙잭인 경우 true 아닌 경우 false 리턴
         return  (Card1.getRank() == Rank.ACE &&
                     (Card2.getRank() == Rank.TEN || Card2.getRank() == Rank.JACK ||
                      Card2.getRank() == Rank.QUEEN || Card2.getRank() == Rank.KING)) ||

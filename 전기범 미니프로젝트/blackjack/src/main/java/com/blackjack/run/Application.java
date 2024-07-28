@@ -44,23 +44,20 @@ public class Application {
                         MemberResponseObject checkLoginSuccess = memberService.findMemberByLoginForm(memberLogin());
                         if (checkLoginSuccess.getCheckValueInt() > 0) {
                             System.out.println("\n로그인 성공!");
-//                        System.out.println(checkLoginSuccess.getMember());
                             memNo = checkLoginSuccess.getMember().getMemNo();
                             goLounge();
                             break;
-                        } else if (checkLoginSuccess.getCheckValueInt() == 0) {
-                            System.out.println("\n아이디 또는 비밀번호가 잘못되었습니다.");
-                        } else {
-                            System.out.println("\n존재하지 않는 아이디입니다.");
                         }
+                        else if (checkLoginSuccess.getCheckValueInt() == 0)
+                            System.out.println("\n비밀번호가 잘못되었습니다.");
+                        else System.out.println("\n존재하지 않는 아이디입니다.");
                         break;
                     case 2:
                         MemberResponseObject checkSignUpSuccess = memberService.registMember(signUp());
                         if (checkSignUpSuccess.getCheckValueBoolean()) {
                             System.out.println("\n회원가입 성공!");
-                        } else {
-                            System.out.println("\n회원가입에 실패했습니다.");
                         }
+                        else System.out.println("\n회원가입에 실패했습니다.");
                         break;
                     case 9:
                         System.out.println("\n게임을 종료합니다.");
@@ -75,7 +72,6 @@ public class Application {
 
     private static void goLounge() {
         Scanner sc = new Scanner(System.in);
-//        System.out.println(memNo);
         while (true) {
             System.out.println("\n====== 라운지 ======");
             System.out.println("1. 게임 시작");
@@ -120,14 +116,13 @@ public class Application {
                     case 3:
                         String nickname = searchNickname();
                         MemberResponseObject checkMemInfoSuccess = memberService.findMemberByNickname(nickname);
-                        GameResponseObject checkMemGameSuccess =
-                                gameService.findGamesByMemNo(checkMemInfoSuccess.getMember().getMemNo());
                         if (checkMemInfoSuccess.getCheckValueBoolean()) {
+                            GameResponseObject checkMemGameSuccess =
+                                    gameService.findGamesByMemNo(checkMemInfoSuccess.getMember().getMemNo());
                             printMemInfo(checkMemInfoSuccess.getMember());
                             printGameListInfo(checkMemGameSuccess.getGameList());
-                        } else {
-                            System.out.println("\n존재하지 않는 닉네임입니다.");
                         }
+                        else System.out.println("\n존재하지 않는 닉네임입니다.");
                         break;
                     case 4:
                         Member member = memberService.findMemberByMemNo(memNo).getMember();
@@ -135,9 +130,8 @@ public class Application {
                             member.setDollars(100);
                             memberService.modifyMember(member);
                             System.out.println("\n충전이 완료되었습니다!");
-                        } else {
-                            System.out.println("\n금액이 이미 충분합니다.");
                         }
+                        else System.out.println("\n금액이 이미 충분합니다.");
                         break;
                     case 8:
                         System.out.println("\n로그아웃 완료");
@@ -179,9 +173,7 @@ public class Application {
                 if (line.equals("Q") | line.equals("q"))  {
                     if(checkPlayAtLeastOnce) gameService.saveGame(game);
                     updateTier(member);
-                    System.out.println("\n====== 최종 결과 ======");
-                    System.out.println("손익: " + game.getResult() + "달러($)");
-                    System.out.println("\n방을 나갑니다.");
+                    printFinalResult(game);
                     return;
                 }
                 try {
@@ -194,7 +186,6 @@ public class Application {
                         System.out.println("\n최소 2달러($)이상 베팅해야합니다.\n");
                     else {
                         game.bet(input);
-//                        System.out.println(member);
                         memberService.modifyMember(member);
                         break;
                     }
@@ -232,7 +223,6 @@ public class Application {
                     String decisionInsurance = sc.nextLine();
                     if (decisionInsurance.equals("Y") | decisionInsurance.equals("y")) {
                         game.placeInsurance();
-//                    System.out.println(member);
                         memberService.modifyMember(member);
                         checkPlayerInsurance = true;
                     }
@@ -257,16 +247,13 @@ public class Application {
                     printBothCards(dealerCard, playerCard, false);
                     System.out.println("\n딜러 블랙잭!");
                     if(checkPlayerInsurance) game.insurance(true); // 인슈어런스 처리
-//                System.out.println(member);
                     memberService.modifyMember(member);
 
                     if (checkPlayerBlackjack) {
                         game.push();
-//                    System.out.println(member);
                         System.out.println("\n푸시");
                     } else {
                         game.dealerWin();
-//                    System.out.println(member);
                         System.out.println("딜러 Win");
                     }
                     memberService.modifyMember(member);
@@ -274,7 +261,6 @@ public class Application {
                     if (checkPlayerInsurance) {
                         System.out.println("\nNO 블랙잭");
                         game.insurance(false); // 인슈어런스 처리
-//                    System.out.println(member);
                         memberService.modifyMember(member);
                     }
 
@@ -291,7 +277,6 @@ public class Application {
                             if (Card.sumCardsPoint(playerCard, false) > 21) {
                                 checkPlayerBust = true;
                                 game.dealerWin();
-//                            System.out.println(member);
                                 memberService.modifyMember(member);
                                 System.out.println("\n플레이어 버스트");
                                 System.out.println("딜러 Win");
@@ -309,8 +294,7 @@ public class Application {
                                     case 2:
                                         checkPlayerStand = true;
                                         break;
-                                    default:
-                                        System.out.println("\n잘못된 입력입니다.");
+                                    default: System.out.println("\n잘못된 입력입니다.");
                                 }
                             } catch (NumberFormatException e) {
                                 System.out.println("\n잘못된 입력입니다.");
@@ -333,7 +317,6 @@ public class Application {
                             if (dealerPoints > 21) {
                                 if (checkPlayerBlackjack) game.blackjack();
                                 else game.playerWin();
-//                            System.out.println(member);
                                 memberService.modifyMember(member);
                                 System.out.println("\n딜러 버스트");
                                 System.out.println("플레이어 Win");
@@ -342,7 +325,6 @@ public class Application {
                             if (dealerPoints >= 17) {
                                 if (dealerPoints > playerPoints) {
                                     game.dealerWin();
-//                                System.out.println(member);
                                     memberService.modifyMember(member);
                                     System.out.println("\n딜러 Win");
                                     break;
@@ -352,8 +334,10 @@ public class Application {
                                     memberService.modifyMember(member);
                                     System.out.println("\n푸시");
                                     break;
-                                } else dealerCard.add(game.getDeck().dealCard());
-                            } else dealerCard.add(game.getDeck().dealCard());
+                                }
+                                else dealerCard.add(game.getDeck().dealCard());
+                            }
+                            else dealerCard.add(game.getDeck().dealCard());
 
                             if (!delayFlag) delayFlag = true;
                         }
@@ -366,9 +350,7 @@ public class Application {
             if(member.getDollars() == 0) {
                 gameService.saveGame(game);
                 updateTier(member);
-                System.out.println("\n====== 최종 결과 ======");
-                System.out.println("손익: " + game.getResult() + "달러($)");
-                System.out.println("\n방을 나갑니다.");
+                printFinalResult(game);
                 return;
             }
 
@@ -378,9 +360,7 @@ public class Application {
                 if (decisionOneMoreGame.equals("N") | decisionOneMoreGame.equals("n")) {
                     gameService.saveGame(game);
                     updateTier(member);
-                    System.out.println("\n====== 최종 결과 ======");
-                    System.out.println("손익: " + game.getResult() + "달러($)");
-                    System.out.println("\n방을 나갑니다.");
+                    printFinalResult(game);
                     return;
                 }
                 else if (decisionOneMoreGame.equals("Y") | decisionOneMoreGame.equals("y")) {
@@ -390,37 +370,6 @@ public class Application {
                 else System.out.println("\n잘못된 입력입니다.");
             }
         }
-    }
-
-    private static void updateTier(Member member) {
-        int dollars = member.getDollars();
-        if(dollars >= 1000000) member.setTier(Tier.DIAMOND);
-        else if(dollars >= 100000) member.setTier(Tier.PLATINUM);
-        else if(dollars >= 10000) member.setTier(Tier.GOLD);
-        else if(dollars >= 1000) member.setTier(Tier.SILVER);
-        else member.setTier(Tier.BRONZE);
-        memberService.modifyMember(member);
-    }
-
-    private static void printGameStatus(Member member, int betLimit, Game game) {
-        System.out.println("\n====== Black Jack ======");
-        System.out.println("현재 티어: " + member.getTier());
-        System.out.println("잔고: $" + member.getDollars());
-        System.out.println("최대 베팅: $" + betLimit);
-        System.out.println("현재 베팅: $" + game.getBet());
-        System.out.println("현재 손익: " + game.getResult() + "달러($)");
-    }
-
-    private static void printBothCards(ArrayList<Card> dealerCard, ArrayList<Card> playerCard, boolean isPlayerTurn) {
-        System.out.println("\n====== 딜러 카드 ======");
-        Card.printHorizontalCards(dealerCard, isPlayerTurn);
-        System.out.println("======================");
-        System.out.println("딜러 숫자 합: " + Card.sumCardsPoint(dealerCard,isPlayerTurn));
-
-        System.out.println("\n====== 플레이어 카드 ======");
-        Card.printHorizontalCards(playerCard, false);
-        System.out.println("======================");
-        System.out.println("플레이어 숫자 합: " + Card.sumCardsPoint(playerCard,false));
     }
 
     private static void selectMyInfoMenuNo(Member member, ArrayList<Game> gameList) {
@@ -526,25 +475,6 @@ public class Application {
         return null;
     }
 
-    private static void printMemInfo(Member member) {
-        System.out.println("\n====== 회원 정보 ======");
-//        System.out.println("회원번호: " + mro.getMember().getMemNo());
-        System.out.println("닉네임: " + member.getNickname());
-        System.out.println("티어: " + member.getTier());
-        System.out.println("나이: " + member.getAge());
-        System.out.println("잔고: $" + member.getDollars());
-        System.out.println("====================");
-    }
-
-    private static void printGameListInfo(ArrayList<Game> gameList) {
-        System.out.println("\n====== 최근 게임 ======");
-        if(gameList.isEmpty()) System.out.println("최근 전적이 없습니다.");
-        for(Game game: gameList) {
-            System.out.println(game);
-        }
-        System.out.println("====================");
-    }
-
     private static String searchNickname() {
         Scanner sc = new Scanner(System.in);
         System.out.println("검색할 회원의 닉네임을 입력하세요: ");
@@ -617,5 +547,60 @@ public class Application {
         System.out.println("비밀번호: ");
         String memPwd = sc.nextLine();
         return new LoginForm(memId, memPwd);
+    }
+
+    private static void updateTier(Member member) {
+        int dollars = member.getDollars();
+        if(dollars >= 1000000) member.setTier(Tier.DIAMOND);
+        else if(dollars >= 100000) member.setTier(Tier.PLATINUM);
+        else if(dollars >= 10000) member.setTier(Tier.GOLD);
+        else if(dollars >= 1000) member.setTier(Tier.SILVER);
+        else member.setTier(Tier.BRONZE);
+        memberService.modifyMember(member);
+    }
+
+    private static void printMemInfo(Member member) {
+        System.out.println("\n====== 회원 정보 ======");
+        System.out.println("닉네임: " + member.getNickname());
+        System.out.println("티어: " + member.getTier());
+        System.out.println("나이: " + member.getAge());
+        System.out.println("잔고: $" + member.getDollars());
+        System.out.println("====================");
+    }
+
+    private static void printGameListInfo(ArrayList<Game> gameList) {
+        System.out.println("\n====== 최근 게임 ======");
+        if(gameList.isEmpty()) System.out.println("최근 전적이 없습니다.");
+        for(Game game: gameList) {
+            System.out.println(game);
+        }
+        System.out.println("====================");
+    }
+
+    private static void printGameStatus(Member member, int betLimit, Game game) {
+        System.out.println("\n====== Black Jack ======");
+        System.out.println("현재 티어: " + member.getTier());
+        System.out.println("잔고: $" + member.getDollars());
+        System.out.println("최대 베팅: $" + betLimit);
+        System.out.println("현재 베팅: $" + game.getBet());
+        System.out.println("현재 손익: " + game.getResult() + "달러($)");
+    }
+
+    private static void printBothCards(ArrayList<Card> dealerCard, ArrayList<Card> playerCard, boolean isPlayerTurn) {
+        System.out.println("\n====== 딜러 카드 ======");
+        Card.printHorizontalCards(dealerCard, isPlayerTurn);
+        System.out.println("======================");
+        System.out.println("딜러 숫자 합: " + Card.sumCardsPoint(dealerCard,isPlayerTurn));
+
+        System.out.println("\n====== 플레이어 카드 ======");
+        Card.printHorizontalCards(playerCard, false);
+        System.out.println("======================");
+        System.out.println("플레이어 숫자 합: " + Card.sumCardsPoint(playerCard,false));
+    }
+
+    private static void printFinalResult(Game game) {
+        System.out.println("\n====== 최종 결과 ======");
+        System.out.println("손익: " + game.getResult() + "달러($)");
+        System.out.println("\n방을 나갑니다.");
     }
 }

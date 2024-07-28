@@ -5,9 +5,6 @@ public class LoginForm {
     private String memId;
     private String memPwd;
 
-    public LoginForm() {
-    }
-
     public LoginForm(String memId, String memPwd) {
         this.memId = memId;
         this.memPwd = memPwd;

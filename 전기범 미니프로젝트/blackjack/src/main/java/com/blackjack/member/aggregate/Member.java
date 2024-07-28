@@ -5,14 +5,14 @@ import java.util.Objects;
 
 public class Member implements Serializable, Comparable<Member> {
 
-    private int memNo;
-    private String id;
-    private String pwd;
-    private String name;
-    private String nickname;
-    private Tier tier = Tier.BRONZE;
-    private int age;
-    private int dollars = 100;
+    private int memNo; // 회원번호
+    private String id; // 아이디
+    private String pwd; // 비밀번호
+    private String name; // 이름
+    private String nickname; // 닉네임
+    private Tier tier = Tier.BRONZE; // 티어
+    private int age; // 나이
+    private int dollars = 100; // 잔고
 
     public Member() {
     }
