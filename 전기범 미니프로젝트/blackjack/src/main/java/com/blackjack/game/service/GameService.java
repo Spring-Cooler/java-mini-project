@@ -3,7 +3,6 @@ package com.blackjack.game.service;
 import com.blackjack.game.aggregate.Game;
 import com.blackjack.game.aggregate.GameResponseObject;
 import com.blackjack.game.repository.GameRepository;
-import com.blackjack.member.service.MemberService;
 
 import java.util.ArrayList;
 

@@ -2,8 +2,6 @@ package com.blackjack.game.repository;
 
 import com.blackjack.game.aggregate.Game;
 import com.blackjack.member.aggregate.Member;
-import com.blackjack.member.repository.MemberRepository;
-import com.blackjack.member.service.MemberService;
 import com.blackjack.stream.MyObjectOutput;
 
 import java.io.*;
