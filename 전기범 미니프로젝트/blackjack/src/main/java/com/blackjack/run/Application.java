@@ -242,7 +242,7 @@ public class Application {
             if(!skipFlag) {
                 // 딜러 블랙잭 확인
                 if (game.isBlackjack(dealerCard1, dealerCard2)) {
-                    Thread.sleep(500);
+                    Thread.sleep(1000);
                     printGameStatus(member, betLimit, game);
                     printBothCards(dealerCard, playerCard, false);
                     System.out.println("\n딜러 블랙잭!");
