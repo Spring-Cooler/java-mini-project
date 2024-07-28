@@ -4,10 +4,11 @@ import main.visualgo.repository.DataRepository;
 
 
 public class UserService {
+    /* singleton */
     private static UserService userService;
     private static DataRepository dataRepository = DataRepository.getInstance();
-    private UserService() {
-    }
+
+    private UserService() {}
 
     public static UserService getInstance() {
         if (userService == null) {
