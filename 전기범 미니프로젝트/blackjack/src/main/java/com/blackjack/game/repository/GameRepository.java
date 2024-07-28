@@ -12,18 +12,14 @@ import java.util.ArrayList;
 public class GameRepository {
 
     private ArrayList<Game> gameList = new ArrayList<>();
-    private final MemberService memberService;
     private final String filePath = "전기범 미니프로젝트/blackjack/src/main/java/com/blackjack/game/db/gameDB.dat";
     private final File file;
 
-    public GameRepository(MemberService memberService) {
-        this.memberService = memberService;
+    public GameRepository() {
         file = new File(filePath);
-
         if(!file.exists()) {
             saveGames(file, gameList);
         }
-
         loadGames(file);
     }
 
@@ -116,21 +112,6 @@ public class GameRepository {
         for(int i=gameList.size()-1; i>=0; i--) {
             Game game = gameList.get(i);
             if(game.getPlayer().getMemNo() == memNo) {
-                games.add(game);
-                cnt++;
-            }
-            if(cnt == 10) break;
-        }
-        return games;
-    }
-
-    public ArrayList<Game> selectGamesByNickname(String nickname) {
-        ArrayList<Game> games = new ArrayList<>();
-        Member member = memberService.findMemberByNickname(nickname).getMember();
-        int cnt = 0;
-        for(int i=gameList.size()-1; i>=0; i--) {
-            Game game = gameList.get(i);
-            if(game.getPlayer().equals(member)) {
                 games.add(game);
                 cnt++;
             }

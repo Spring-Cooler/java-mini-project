@@ -19,7 +19,7 @@ import static java.lang.System.exit;
 public class Application {
 
     private static final MemberService memberService = new MemberService();
-    private static final GameService gameService = new GameService(memberService);
+    private static final GameService gameService = new GameService();
     private static int memNo;
 
     public static void main(String[] args) {
@@ -120,7 +120,8 @@ public class Application {
                     case 3:
                         String nickname = searchNickname();
                         MemberResponseObject checkMemInfoSuccess = memberService.findMemberByNickname(nickname);
-                        GameResponseObject checkMemGameSuccess = gameService.findGamesByNickname(nickname);
+                        GameResponseObject checkMemGameSuccess =
+                                gameService.findGamesByMemNo(checkMemInfoSuccess.getMember().getMemNo());
                         if (checkMemInfoSuccess.getCheckValueBoolean()) {
                             printMemInfo(checkMemInfoSuccess.getMember());
                             printGameListInfo(checkMemGameSuccess.getGameList());

@@ -9,10 +9,9 @@ import java.util.ArrayList;
 
 public class GameService {
 
-    private final GameRepository gameRepository;
+    private final GameRepository gameRepository = new GameRepository();;
 
-    public GameService(MemberService memberService) {
-        gameRepository = new GameRepository(memberService);
+    public GameService() {
     }
 
     public GameResponseObject saveGame(Game game) {
@@ -24,12 +23,6 @@ public class GameService {
 
     public GameResponseObject findGamesByMemNo(int memNo) {
         ArrayList<Game> gameList = gameRepository.selectGamesByMemNo(memNo);
-        if(gameList == null) return new GameResponseObject(null, false);
-        else return new GameResponseObject(gameList,true);
-    }
-
-    public GameResponseObject findGamesByNickname(String nickname) {
-        ArrayList<Game> gameList = gameRepository.selectGamesByNickname(nickname);
         if(gameList == null) return new GameResponseObject(null, false);
         else return new GameResponseObject(gameList,true);
     }
