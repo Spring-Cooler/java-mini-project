@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class GameService {
 
-    private final GameRepository gameRepository = new GameRepository();;
+    private final GameRepository gameRepository = new GameRepository();
 
     public GameService() {
     }
