@@ -1,4 +1,4 @@
-package com.blackjack.member.aggregate;
+package com.blackjack.domain.member.aggregate;
 
 import java.io.Serializable;
 import java.util.Objects;

@@ -1,15 +1,15 @@
 package com.blackjack.run;
 
-import com.blackjack.game.aggregate.Card;
-import com.blackjack.game.aggregate.Game;
-import com.blackjack.game.aggregate.GameResponseObject;
-import com.blackjack.game.aggregate.Rank;
-import com.blackjack.game.service.GameService;
-import com.blackjack.member.aggregate.LoginForm;
-import com.blackjack.member.aggregate.Member;
-import com.blackjack.member.aggregate.MemberResponseObject;
-import com.blackjack.member.aggregate.Tier;
-import com.blackjack.member.service.MemberService;
+import com.blackjack.domain.game.aggregate.Card;
+import com.blackjack.domain.game.aggregate.Game;
+import com.blackjack.response.GameResponseObject;
+import com.blackjack.domain.game.aggregate.Rank;
+import com.blackjack.domain.game.service.GameService;
+import com.blackjack.request.LoginForm;
+import com.blackjack.domain.member.aggregate.Member;
+import com.blackjack.response.MemberResponseObject;
+import com.blackjack.domain.member.aggregate.Tier;
+import com.blackjack.domain.member.service.MemberService;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -33,10 +33,6 @@ public class Application {
             System.out.println("번호를 입력해주세요: ");
 
             String line = sc.nextLine();
-            if(line.length() > 1) {
-                System.out.println("\n잘못된 입력입니다.");
-                continue;
-            }
             try {
                 int input = Integer.parseInt(line);
                 switch (input) {
@@ -218,23 +214,35 @@ public class Application {
             // 딜러의 두번째 카드가 에이스인 경우 인슈어런스 및 이븐 머니 선택 제공
             if ((dealerCard2.getRank() == Rank.ACE) && (member.getDollars() >= game.getBet()/2)) {
                 if(!checkPlayerBlackjack) {
-                    System.out.println("인슈어런스? (Y/N)");
-                    // 입력을 통해 인슈어런스 결정
-                    String decisionInsurance = sc.nextLine();
-                    if (decisionInsurance.equals("Y") | decisionInsurance.equals("y")) {
-                        game.placeInsurance();
-                        memberService.modifyMember(member);
-                        checkPlayerInsurance = true;
+                    while(true) {
+                        System.out.println("인슈어런스? (Y/N)");
+                        // 입력을 통해 인슈어런스 결정
+                        String decisionInsurance = sc.nextLine();
+                        if (decisionInsurance.equals("Y") | decisionInsurance.equals("y")) {
+                            game.placeInsurance();
+                            memberService.modifyMember(member);
+                            checkPlayerInsurance = true;
+                            break;
+                        } else if (decisionInsurance.equals("N") | decisionInsurance.equals("n")) {
+                            break;
+                        }
+                        else System.out.println("\n잘못된 입력입니다.\n");
                     }
                 } else {
-                    System.out.println("이븐 머니? (Y/N)");
-                    String decisionEven = sc.nextLine();
-                    if (decisionEven.equals("Y") | decisionEven.equals("y")) {
-                        game.setEvenMoney(true);
-                        game.evenMoney();
-                        skipFlag = true;
-                        System.out.println("\n이븐 머니");
-                        System.out.println("플레이어 Win");
+                    while(true) {
+                        System.out.println("이븐 머니? (Y/N)");
+                        String decisionEven = sc.nextLine();
+                        if (decisionEven.equals("Y") | decisionEven.equals("y")) {
+                            game.setEvenMoney(true);
+                            game.evenMoney();
+                            skipFlag = true;
+                            System.out.println("\n이븐 머니");
+                            System.out.println("플레이어 Win");
+                            break;
+                        } else if (decisionEven.equals("N") | decisionEven.equals("n")) {
+                            break;
+                        }
+                        else System.out.println("\n잘못된 입력입니다.\n");
                     }
                 }
             }
@@ -242,7 +250,7 @@ public class Application {
             if(!skipFlag) {
                 // 딜러 블랙잭 확인
                 if (game.isBlackjack(dealerCard1, dealerCard2)) {
-                    Thread.sleep(1000);
+                    Thread.sleep(500);
                     printGameStatus(member, betLimit, game);
                     printBothCards(dealerCard, playerCard, false);
                     System.out.println("\n딜러 블랙잭!");
@@ -551,10 +559,14 @@ public class Application {
 
     private static void updateTier(Member member) {
         int dollars = member.getDollars();
-        if(dollars >= 1000000) member.setTier(Tier.DIAMOND);
-        else if(dollars >= 100000) member.setTier(Tier.PLATINUM);
-        else if(dollars >= 10000) member.setTier(Tier.GOLD);
-        else if(dollars >= 1000) member.setTier(Tier.SILVER);
+        if(dollars >= 200000) member.setTier(Tier.SUPER_GRANDMASTER);
+        if(dollars >= 50000) member.setTier(Tier.GRANDMASTER);
+        if(dollars >= 15000) member.setTier(Tier.MASTER);
+        if(dollars >= 5000) member.setTier(Tier.DIAMOND);
+        if(dollars >= 2000) member.setTier(Tier.EMERALD);
+        else if(dollars >= 800) member.setTier(Tier.PLATINUM);
+        else if(dollars >= 400) member.setTier(Tier.GOLD);
+        else if(dollars >= 200) member.setTier(Tier.SILVER);
         else member.setTier(Tier.BRONZE);
         memberService.modifyMember(member);
     }

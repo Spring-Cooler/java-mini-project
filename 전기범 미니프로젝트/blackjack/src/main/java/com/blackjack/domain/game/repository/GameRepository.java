@@ -1,7 +1,7 @@
-package com.blackjack.game.repository;
+package com.blackjack.domain.game.repository;
 
-import com.blackjack.game.aggregate.Game;
-import com.blackjack.member.aggregate.Member;
+import com.blackjack.domain.game.aggregate.Game;
+import com.blackjack.domain.member.aggregate.Member;
 import com.blackjack.stream.MyObjectOutput;
 
 import java.io.*;
@@ -11,7 +11,7 @@ public class GameRepository {
 
     private ArrayList<Game> gameList = new ArrayList<>();
     private final File file;
-    private final String filePath = "전기범 미니프로젝트/blackjack/src/main/java/com/blackjack/game/db/gameDB.dat";
+    private final String filePath = "전기범 미니프로젝트/blackjack/src/main/java/com/blackjack/domain/game/db/gameDB.dat";
 
     public GameRepository() {
         file = new File(filePath);
@@ -116,7 +116,7 @@ public class GameRepository {
                 games.add(game);
                 cnt++;
             }
-            if(cnt == 10) break;
+            if(cnt == 6) break;
         }
         return games;
     }

@@ -1,6 +1,6 @@
-package com.blackjack.game.aggregate;
+package com.blackjack.domain.game.aggregate;
 
-import com.blackjack.member.aggregate.Member;
+import com.blackjack.domain.member.aggregate.Member;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -22,10 +22,14 @@ public class Game implements Serializable {
         // 입장한 플레이어의 티어에 따라 베팅 한도 설정
         switch (player.getTier()) {
             case BRONZE: this.betLimit = 10; break;
-            case SILVER: this.betLimit = 100; break;
-            case GOLD: this.betLimit = 1000; break;
-            case PLATINUM: this.betLimit = 10000; break;
-            case DIAMOND: this.betLimit = 100000; break;
+            case SILVER: this.betLimit = 20; break;
+            case GOLD: this.betLimit = 40; break;
+            case PLATINUM: this.betLimit = 80; break;
+            case EMERALD: this.betLimit = 200; break;
+            case DIAMOND: this.betLimit = 500; break;
+            case MASTER: this.betLimit = 1500; break;
+            case GRANDMASTER: this.betLimit = 5000; break;
+            case SUPER_GRANDMASTER: this.betLimit = 20000; break;
         }
     }
 

@@ -1,4 +1,4 @@
-package com.blackjack.member.aggregate;
+package com.blackjack.request;
 
 public class LoginForm {
 

@@ -1,4 +1,6 @@
-package com.blackjack.game.aggregate;
+package com.blackjack.response;
+
+import com.blackjack.domain.game.aggregate.Game;
 
 import java.util.ArrayList;
 

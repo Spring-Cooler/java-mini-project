@@ -1,9 +1,9 @@
-package com.blackjack.member.service;
+package com.blackjack.domain.member.service;
 
-import com.blackjack.member.aggregate.LoginForm;
-import com.blackjack.member.aggregate.Member;
-import com.blackjack.member.aggregate.MemberResponseObject;
-import com.blackjack.member.repository.MemberRepository;
+import com.blackjack.request.LoginForm;
+import com.blackjack.domain.member.aggregate.Member;
+import com.blackjack.response.MemberResponseObject;
+import com.blackjack.domain.member.repository.MemberRepository;
 
 public class MemberService {
 

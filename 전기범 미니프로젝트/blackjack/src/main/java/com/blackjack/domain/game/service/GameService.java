@@ -1,8 +1,8 @@
-package com.blackjack.game.service;
+package com.blackjack.domain.game.service;
 
-import com.blackjack.game.aggregate.Game;
-import com.blackjack.game.aggregate.GameResponseObject;
-import com.blackjack.game.repository.GameRepository;
+import com.blackjack.domain.game.aggregate.Game;
+import com.blackjack.response.GameResponseObject;
+import com.blackjack.domain.game.repository.GameRepository;
 
 import java.util.ArrayList;
 

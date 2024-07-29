@@ -1,4 +1,4 @@
-package com.blackjack.game.aggregate;
+package com.blackjack.domain.game.aggregate;
 
 import java.util.ArrayList;
 
@@ -130,13 +130,23 @@ public class Card {
         String suitSymbol = getSuitSymbol(suit);
         String rankDisplay = getRankDisplay(rank);
         // 카드 출력 모양
-        return  "┌─────────┐\n" +
-                "│ " + rankDisplay + "       │\n" +
-                "│         │\n" +
-                "│    " + suitSymbol + "    │\n" +
-                "│         │\n" +
-                "│       " + rankDisplay + " │\n" +
-                "└─────────┘";
+        if(!rankDisplay.equals("10")) {
+            return "┌─────────┐\n" +
+                   "│ " + rankDisplay + "       │\n" +
+                   "│         │\n" +
+                   "│    " + suitSymbol + "    │\n" +
+                   "│         │\n" +
+                   "│       " + rankDisplay + " │\n" +
+                   "└─────────┘";
+        } else {
+            return "┌─────────┐\n" +
+                   "│ " + rankDisplay + "      │\n" +
+                   "│         │\n" +
+                   "│    " + suitSymbol + "    │\n" +
+                   "│         │\n" +
+                   "│      " + rankDisplay + " │\n" +
+                   "└─────────┘";
+        }
     }
 
     @Override

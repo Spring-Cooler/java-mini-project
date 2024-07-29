@@ -1,6 +1,6 @@
-package com.blackjack.member.repository;
+package com.blackjack.domain.member.repository;
 
-import com.blackjack.member.aggregate.Member;
+import com.blackjack.domain.member.aggregate.Member;
 import com.blackjack.stream.MyObjectOutput;
 
 import java.io.*;
@@ -10,7 +10,7 @@ import java.util.Collections;
 public class MemberRepository {
 
     private final ArrayList<Member> memberList = new ArrayList<>();
-    private final String filePath = "전기범 미니프로젝트/blackjack/src/main/java/com/blackjack/member/db/memberDB.dat";
+    private final String filePath = "전기범 미니프로젝트/blackjack/src/main/java/com/blackjack/domain/member/db/memberDB.dat";
     private final File file;
 
     public MemberRepository() {

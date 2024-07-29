@@ -1,4 +1,6 @@
-package com.blackjack.member.aggregate;
+package com.blackjack.response;
+
+import com.blackjack.domain.member.aggregate.Member;
 
 public class MemberResponseObject {
 
