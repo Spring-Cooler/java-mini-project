@@ -34,7 +34,7 @@ public class Application {
             try {
                 int input = Integer.parseInt(line);
                 switch (input) {
-                    case 1:
+                    case 1: //로그인
                         MemberResponseObject checkLoginSuccess = memberService.findMemberByLoginForm(memberLogin());
                         if (checkLoginSuccess.getCheckValueInt() > 0) {
                             System.out.println("\n로그인 성공!");
@@ -46,14 +46,14 @@ public class Application {
                             System.out.println("\n비밀번호가 잘못되었습니다.");
                         else System.out.println("\n존재하지 않는 아이디입니다.");
                         break;
-                    case 2:
+                    case 2: // 회원가입
                         MemberResponseObject checkSignUpSuccess = memberService.registMember(signUp());
                         if (checkSignUpSuccess.getCheckValueBoolean()) {
                             System.out.println("\n회원가입 성공!");
                         }
                         else System.out.println("\n회원가입에 실패했습니다.");
                         break;
-                    case 9:
+                    case 9: // 게임 종료
                         System.out.println("\n게임을 종료합니다.");
                         return;
                     default: System.out.println("\n잘못된 입력입니다.");
@@ -85,7 +85,7 @@ public class Application {
             try {
                 int input = Integer.parseInt(line);
                 switch (input) {
-                    case 1:
+                    case 1: // 게임 시작
                         MemberResponseObject checkValidPlayer = memberService.findMemberByMemNo(memNo);
                         if(checkValidPlayer.getCheckValueBoolean()) {
                             System.out.println("\n게임을 시작합니다.");
@@ -97,7 +97,7 @@ public class Application {
                         }
                         else System.out.println("\n플레이어 정보를 불러오지 못했습니다.");
                         break;
-                    case 2:
+                    case 2: // 내 정보 보기
                         MemberResponseObject checkMyInfoSuccess = memberService.findMemberByMemNo(memNo);
                         GameResponseObject checkMyGameSuccess = gameService.findGamesByMemNo(memNo);
                         if (checkMyInfoSuccess.getCheckValueBoolean()) {
@@ -107,7 +107,7 @@ public class Application {
                         }
                         else System.out.println("\n내 정보를 불러오지 못했습니다.");
                         break;
-                    case 3:
+                    case 3: // 회원 검색
                         String nickname = searchNickname();
                         MemberResponseObject checkMemInfoSuccess = memberService.findMemberByNickname(nickname);
                         if (checkMemInfoSuccess.getCheckValueBoolean()) {
@@ -118,7 +118,7 @@ public class Application {
                         }
                         else System.out.println("\n존재하지 않는 닉네임입니다.");
                         break;
-                    case 4:
+                    case 4: // 무료 충전
                         Member member = memberService.findMemberByMemNo(memNo).getMember();
                         if(member.getDollars() < 100) {
                             member.setDollars(100);
@@ -127,13 +127,13 @@ public class Application {
                         }
                         else System.out.println("\n금액이 이미 충분합니다.");
                         break;
-                    case 8:
+                    case 8: // 로그아웃
                         System.out.println("\n로그아웃 완료");
                         return;
-                    case 9:
+                    case 9: // 게임 종료
                         System.out.println("\n게임을 종료합니다.");
                         exit(0);
-                    case 0:
+                    case 0: // 회원 탈퇴
                         MemberResponseObject checkMemDelSuccess = memberService.removeMember(delAccount());
                         if (checkMemDelSuccess.getCheckValueBoolean()) {
                             gameService.removeGame(memNo);
@@ -161,6 +161,7 @@ public class Application {
         boolean checkPlayAtLeastOnce = false;
         while(true) {
             printGameStatus(player, betLimit, game);
+            // 베팅 금액 입력
             while(true) {
                 System.out.println("배팅할 금액을 정하세요(방 나가기(Q)): ");
                 String line = sc.nextLine();
@@ -191,17 +192,21 @@ public class Application {
             Thread.sleep(500);
 
             printGameStatus(player, betLimit, game);
-            game.getPlayer().initPlayerCard(game.getDeck());
-            game.getDealer().initDealerCard(game.getDeck());
+            game.getPlayer().initPlayerCard(game.getDeck()); // 플레이어 카드 초기 세팅
+            game.getDealer().initDealerCard(game.getDeck()); // 딜러 카드 초기 세팅
             printBothCards(dealer.getDealerCard(), player.getPlayerCard(),true);
 
+            // 플레이어 블랙잭 여부 검사
             player.setBlackjack(game.isBlackjack(player.getPlayerCard().get(0),player.getPlayerCard().get(1)));
-            boolean skipFlag = false;
 
+            boolean skipFlag = false; // 범위 스킵 여부를 저장하는 변수
+
+            // 플레이어 블랙잭일 경우
             if(player.isBlackjack()) System.out.println("\n플레이어 블랙잭! 축하드립니다~\n");
 
             // 딜러의 두번째 카드가 에이스인 경우 인슈어런스 및 이븐 머니 선택 제공
             if ((dealer.getDealerCard().get(1).getRank() == Rank.ACE) && (player.getDollars() >= game.getBet()/2)) {
+                // 플레이어 블랙잭일 경우 이븐 머니 여부 입력, 아닐 경우 인슈어런스 여부 입력
                 if(!player.isBlackjack()) {
                     while(true) {
                         System.out.println("인슈어런스? (Y/N)");
@@ -236,6 +241,7 @@ public class Application {
                 }
             }
 
+            // 이븐 머니일 경우 스킵
             if(!skipFlag) {
                 // 딜러 블랙잭 확인
                 if (game.isBlackjack(dealer.getDealerCard().get(0),player.getPlayerCard().get(1))) {
@@ -243,9 +249,11 @@ public class Application {
                     printGameStatus(player, betLimit, game);
                     printBothCards(dealer.getDealerCard(), player.getPlayerCard(), false);
                     System.out.println("\n딜러 블랙잭!");
+                    // 플레이어가 인슈어런스 베팅을 했을 경우
                     if(player.isInsurance()) game.insurance(true); // 인슈어런스 처리
                     memberService.modifyMember(player);
 
+                    // 플레이어 블랙잭이면 푸시, 아니면 딜러 승리
                     if (player.isBlackjack()) {
                         game.push();
                         System.out.println("\n푸시");
@@ -264,11 +272,13 @@ public class Application {
                     skipFlag = true;
                     if (!player.isBlackjack()) {
                         while (true) {
+                            // 첫 바퀴에만 스킵
                             if (!skipFlag) {
                                 Thread.sleep(500);
                                 printGameStatus(player, betLimit, game);
                                 printBothCards(dealer.getDealerCard(), player.getPlayerCard(), true);
                             }
+                            // 카드 점수 합이 21 초과이면 버스트
                             if (Card.sumCardsPoint(player.getPlayerCard(), false) > 21) {
                                 player.setBust(true);
                                 game.dealerWin();
@@ -278,6 +288,7 @@ public class Application {
                                 break;
                             }
 
+                            // 더블다운을 한 경우 여기서 바로 break
                             if(player.isDoubleDown()) break;
 
                             System.out.println("\n힛:1, 스탠드:2, 더블다운:3, 서렌더:4");
@@ -285,14 +296,14 @@ public class Application {
                             try {
                                 int input = Integer.parseInt(line);
                                 switch (input) {
-                                    case 1:
+                                    case 1: // 힛(한장 더 받기)
                                         player.getPlayerCard().add(game.getDeck().dealCard());
                                         player.setHit(true);
                                         break;
-                                    case 2:
+                                    case 2: // 스탠드(그만 받기)
                                         player.setStand(true);
                                         break;
-                                    case 3:
+                                    case 3: // 더블다운(처음 2장일 때 베팅을 2배로 올리고, 한장만 더 받기)
                                         if(!player.isHit()) {
                                             game.bet(game.getBet());
                                             memberService.modifyMember(player);
@@ -301,7 +312,7 @@ public class Application {
                                         }
                                         else System.out.println("\n이미 힛을 하여 더블다운이 불가합니다.");
                                         break;
-                                    case 4:
+                                    case 4: // 서렌더(항복하고 베팅 금액의 절반만 챙기기)
                                         game.surrender();
                                         memberService.modifyMember(player);
                                         player.setSurrender(true);
@@ -318,8 +329,9 @@ public class Application {
                         }
                     }
 
+                    // 플레이어 버스트가 아니고, 서렌더도 아닌 경우)
                     if (!player.isBust() && !player.isSurrender()) {
-                        boolean delayFlag = false;
+                        boolean delayFlag = false; // 출력 딜레이 여부를 저장하는 변수
                         int playerPoints = Card.sumCardsPoint(player.getPlayerCard(), false);
                         while (true) {
                             if (delayFlag) Thread.sleep(1500);
@@ -327,6 +339,7 @@ public class Application {
                             printGameStatus(member, betLimit, game);
                             printBothCards(dealer.getDealerCard(), player.getPlayerCard(), false);
                             int dealerPoints = Card.sumCardsPoint(dealer.getDealerCard(), false);
+                            // 카드 점수 합이 21 초과이면 버스트
                             if (dealerPoints > 21) {
                                 if (player.isBlackjack()) game.blackjack();
                                 else game.playerWin();
@@ -335,6 +348,7 @@ public class Application {
                                 System.out.println("플레이어 Win");
                                 break;
                             }
+                            // 딜러 카드 접수 합이 17 미만이면 딜러는 무조건 더 받아야한다.
                             if (dealerPoints >= 17) {
                                 if (dealerPoints > playerPoints) {
                                     game.dealerWin();
@@ -347,6 +361,7 @@ public class Application {
                                     System.out.println("\n푸시");
                                     break;
                                 }
+                                // 딜러 카드 점수 합이 17 이상이지만 플레이어 카드 점수보다 낮은 경우 무조건 더 받는다.
                                 else dealer.getDealerCard().add(game.getDeck().dealCard());
                             }
                             else dealer.getDealerCard().add(game.getDeck().dealCard());
@@ -359,6 +374,7 @@ public class Application {
 
             Thread.sleep(500);
             printGameStatus(player, betLimit, game);
+            // 플레이어의 잔고가 0일 경우 플레이어는 강제 퇴장된다.
             if(player.getDollars() == 0) {
                 gameService.saveGame(game);
                 updateTier(player);
@@ -366,11 +382,13 @@ public class Application {
                 return;
             }
 
-            player.initPlayerStatus();
+            player.initPlayerStatus(); // 플레이어 스테이터스 초기화
 
+            // 다시하기 여부 입력
             while(true) {
                 System.out.println("\n다시하시겠습니까? (Y/N)");
                 String decisionOneMoreGame = sc.nextLine();
+                // 그만하는 경우 게임 전적을 저장
                 if (decisionOneMoreGame.equalsIgnoreCase("N")) {
                     gameService.saveGame(game);
                     updateTier(player);

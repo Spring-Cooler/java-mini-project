@@ -11,7 +11,7 @@ public class Game implements Serializable {
     private Player player;// 플레이어
     private int result = 0; // 손익
 
-    private final transient Dealer dealer = new Dealer();
+    private final transient Dealer dealer = new Dealer(); // 딜러
     private final transient Deck deck = new Deck(); // 카드덱
     private transient int betLimit = 10; // 최대 베팅 한도
     private transient int bet = 0; // 현재 베팅 금액
@@ -67,7 +67,7 @@ public class Game implements Serializable {
 
     public void surrender() {
         // 플레이어가 항복한 경우
-        player.setDollars(player.getDollars() + this.bet/2);
+        player.setDollars(player.getDollars() + this.bet/2); // 현재 베팅 금액의 50%를 돌려받는다.
         this.result += (this.bet/2);
         dealerWin();
     }

@@ -7,26 +7,28 @@ import java.util.ArrayList;
 
 public class Player extends Member implements Serializable {
     private transient ArrayList<Card> playerCard = new ArrayList<>();
-    private transient boolean blackjack = false;
-    private transient boolean insurance = false;
-    private transient boolean stand = false;
-    private transient boolean bust = false;
-    private transient boolean doubleDown = false;
-    private transient boolean surrender = false;
-    private transient boolean hit = false;
+    private transient boolean blackjack = false; // 블랙잭 여부
+    private transient boolean insurance = false; // 인슈어런스 여부
+    private transient boolean stand = false; // 스탠드 여부
+    private transient boolean bust = false; // 버스트 여부
+    private transient boolean doubleDown = false; // 더블다운 여부
+    private transient boolean surrender = false; // 서렌더 여부
+    private transient boolean hit = false; // 힛 여부
 
     public Player(Member member) {
         super(member);
     }
 
     public void initPlayerCard(Deck deck) {
+        // 게임 시작 시 2장을 드로우한다.
         playerCard.clear();
         playerCard.add(deck.dealCard());
         playerCard.add(deck.dealCard());
     }
 
     public void initPlayerStatus() {
-
+        // 플레이어 스테이터스 초기화
+        this.setHit(false);
         this.setInsurance(false);
         this.setBlackjack(false);
         this.setStand(false);

@@ -6,6 +6,7 @@ public class Dealer {
     private ArrayList<Card> dealerCard = new ArrayList<>();
 
     public void initDealerCard(Deck deck) {
+        // 게임 시작 시 2장을 드로우한다.
         dealerCard.clear();
         dealerCard.add(deck.dealCard());
         dealerCard.add(deck.dealCard());
