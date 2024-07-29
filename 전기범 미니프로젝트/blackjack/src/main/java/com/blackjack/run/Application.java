@@ -304,6 +304,10 @@ public class Application {
                                         player.setStand(true);
                                         break;
                                     case 3: // 더블다운(처음 2장일 때 베팅을 2배로 올리고, 한장만 더 받기)
+                                        if(player.getDollars() < game.getBet()) {
+                                            System.out.println("\n베팅 금액이 모자랍니다.");
+                                            break;
+                                        }
                                         if(!player.isHit()) {
                                             game.bet(game.getBet());
                                             memberService.modifyMember(player);
@@ -336,7 +340,7 @@ public class Application {
                         while (true) {
                             if (delayFlag) Thread.sleep(1500);
                             else Thread.sleep(500);
-                            printGameStatus(member, betLimit, game);
+                            printGameStatus(player, betLimit, game);
                             printBothCards(dealer.getDealerCard(), player.getPlayerCard(), false);
                             int dealerPoints = Card.sumCardsPoint(dealer.getDealerCard(), false);
                             // 카드 점수 합이 21 초과이면 버스트
