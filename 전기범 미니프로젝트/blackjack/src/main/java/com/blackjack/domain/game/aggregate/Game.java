@@ -8,16 +8,17 @@ import java.util.Objects;
 public class Game implements Serializable {
 
     private int gameNo; // 게임번호
-    private Member player; // 플레이어
+    private Player player;// 플레이어
     private int result = 0; // 손익
-    private transient Deck deck; // 카드덱
+
+    private final transient Dealer dealer = new Dealer();
+    private final transient Deck deck = new Deck(); // 카드덱
     private transient int betLimit = 10; // 최대 베팅 한도
     private transient int bet = 0; // 현재 베팅 금액
     private transient int insuranceBet = 0; // 인슈어런스 베팅 금액
     private transient boolean evenMoney = false; // 이븐 머니 여부
 
-    public Game(Member player) {
-        this.deck = new Deck();
+    public Game(Player player) {
         this.player = player;
         // 입장한 플레이어의 티어에 따라 베팅 한도 설정
         switch (player.getTier()) {
@@ -108,6 +109,10 @@ public class Game implements Serializable {
                       Card1.getRank() == Rank.QUEEN || Card1.getRank() == Rank.KING));
     }
 
+    public Dealer getDealer() {
+        return dealer;
+    }
+
     public int getGameNo() {
         return gameNo;
     }
@@ -120,15 +125,11 @@ public class Game implements Serializable {
         return deck;
     }
 
-    public void setDeck(Deck deck) {
-        this.deck = deck;
-    }
-
-    public Member getPlayer() {
+    public Player getPlayer() {
         return player;
     }
 
-    public void setPlayer(Member player) {
+    public void setPlayer(Player player) {
         this.player = player;
     }
 
