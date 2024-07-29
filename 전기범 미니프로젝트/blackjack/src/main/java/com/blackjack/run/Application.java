@@ -275,6 +275,8 @@ public class Application {
                     skipFlag = true;
                     boolean checkPlayerStand = false;
                     boolean checkPlayerBust = false;
+                    boolean checkPlayerDoubleDown = false;
+                    boolean checkPlayerSurrender = false;
                     if (!checkPlayerBlackjack) {
                         while (true) {
                             if (!skipFlag) {
@@ -291,7 +293,9 @@ public class Application {
                                 break;
                             }
 
-                            System.out.println("\n힛 OR 스탠드? (1 OR 2)");
+                            if(checkPlayerDoubleDown) break;
+
+                            System.out.println("\n힛:1, 스탠드:2, 더블다운:3, 서렌더:4");
                             String line = sc.nextLine();
                             try {
                                 int input = Integer.parseInt(line);
@@ -302,18 +306,31 @@ public class Application {
                                     case 2:
                                         checkPlayerStand = true;
                                         break;
+                                    case 3:
+                                        game.bet(game.getBet());
+                                        memberService.modifyMember(member);
+                                        playerCard.add(game.getDeck().dealCard());
+                                        checkPlayerDoubleDown = true;
+                                        break;
+                                    case 4:
+                                        game.surrender();
+                                        memberService.modifyMember(member);
+                                        checkPlayerSurrender = true;
+                                        System.out.println("\n플레이어 서렌더");
+                                        System.out.println("딜러 Win");
+                                        break;
                                     default: System.out.println("\n잘못된 입력입니다.");
                                 }
                             } catch (NumberFormatException e) {
                                 System.out.println("\n잘못된 입력입니다.");
                             }
 
-                            if (checkPlayerStand) break;
+                            if (checkPlayerStand || checkPlayerSurrender) break;
                             skipFlag = false;
                         }
                     }
 
-                    if (!checkPlayerBust) {
+                    if (!checkPlayerBust && !checkPlayerSurrender) {
                         boolean delayFlag = false;
                         int playerPoints = Card.sumCardsPoint(playerCard, false);
                         while (true) {

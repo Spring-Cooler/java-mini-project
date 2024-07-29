@@ -64,6 +64,13 @@ public class Game implements Serializable {
         playerWin(); // 베팅 금액의 200% 지급
     }
 
+    public void surrender() {
+        // 플레이어가 항복한 경우
+        player.setDollars(player.getDollars() + this.bet/2);
+        this.result += (this.bet/2);
+        dealerWin();
+    }
+
     public void playerWin() {
         player.setDollars(player.getDollars() + 2*this.bet); // 베팅 금액의 200% 지급
         this.result += this.bet;

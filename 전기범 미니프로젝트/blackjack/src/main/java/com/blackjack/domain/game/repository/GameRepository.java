@@ -62,8 +62,10 @@ public class GameRepository {
         } catch (EOFException e) {
             System.out.print("");
         } catch (IOException e) {
+            System.out.println("IOException");
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
+            System.out.println("ClassNotFoundException");
             throw new RuntimeException(e);
         } finally {
             try {
