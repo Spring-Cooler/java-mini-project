@@ -5,24 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a9197182-4170-4088-a555-444a345fe320" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/java-mini-project.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/visualgo/aggregate/Tier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/datas/solutions/Solution1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/datas/solutions/Solution1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/datas/testcases/TestCase1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/datas/testcases/TestCase1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/datas/testcases/TestCase2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/datas/testcases/TestCase2.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/visualgo/aggregate/Algorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/visualgo/aggregate/Algorithms.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/visualgo/aggregate/DataType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/visualgo/aggregate/DataType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/visualgo/aggregate/Problem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/visualgo/aggregate/Problem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/visualgo/repository/DataRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/visualgo/repository/DataRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/visualgo/run/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/visualgo/run/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/visualgo/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/visualgo/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/datas/solutions/Solution1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/datas/testcases/TestCase1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/datas/testcases/TestCase2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/visualgo/aggregate/Algorithms.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/visualgo/aggregate/DataType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/visualgo/aggregate/Problem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/visualgo/aggregate/Tier.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/visualgo/repository/DataRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/visualgo/run/Application.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/visualgo/service/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualgo/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualgo/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualgo/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualgo/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualgo/.idea/vcs.xml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +83,8 @@
       <updated>1722082469446</updated>
       <workItem from="1722082470519" duration="618000" />
       <workItem from="1722206851929" duration="395000" />
-      <workItem from="1722207264400" duration="3459000" />
+      <workItem from="1722207264400" duration="3581000" />
+      <workItem from="1722221424594" duration="50000" />
     </task>
     <servers />
   </component>
