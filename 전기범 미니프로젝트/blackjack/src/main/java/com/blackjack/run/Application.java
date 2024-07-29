@@ -244,7 +244,7 @@ public class Application {
             // 이븐 머니일 경우 스킵
             if(!skipFlag) {
                 // 딜러 블랙잭 확인
-                if (game.isBlackjack(dealer.getDealerCard().get(0),player.getPlayerCard().get(1))) {
+                if (game.isBlackjack(dealer.getDealerCard().get(0),dealer.getDealerCard().get(1))) {
                     Thread.sleep(500);
                     printGameStatus(player, betLimit, game);
                     printBothCards(dealer.getDealerCard(), player.getPlayerCard(), false);
