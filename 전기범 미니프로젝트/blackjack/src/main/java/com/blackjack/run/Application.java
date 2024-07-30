@@ -9,12 +9,10 @@ import com.blackjack.response.MemberResponseObject;
 import com.blackjack.domain.member.aggregate.Tier;
 import com.blackjack.domain.member.service.MemberService;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import static java.lang.System.exit;
-import static java.lang.System.setOut;
 
 public class Application {
 
